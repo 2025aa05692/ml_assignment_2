@@ -145,6 +145,18 @@ def main():
     st.subheader("Saved metrics (train/test split) for all models")
     if saved_metrics:
         st.dataframe(pd.DataFrame(saved_metrics).T)
+# --- Download sample test CSV ---
+test_csv_path = os.path.join(MODEL_SAVED_DIR, "test_data_ml.csv")
+if os.path.exists(test_csv_path):
+    with open(test_csv_path, "rb") as f:
+        st.download_button(
+            label="Download sample test CSV",
+            data=f,
+            file_name="test_data_ml.csv",
+            mime="text/csv"
+        )
+else:
+    st.warning("Sample test CSV not found in model folder.")
 
 
 if __name__ == "__main__":
